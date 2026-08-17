@@ -1,0 +1,607 @@
+/* ==========================================================
+   1. TETAPAN ASAS & RESET
+   ========================================================== */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Poppins', sans-serif; 
+}
+
+body { 
+    background-color: #f4f7f6; 
+    color: #333; 
+    overflow-x: auto; 
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ==========================================================
+   2. SKRIN LOGIN ADMIN
+   ========================================================== */
+.login-container { 
+    display: flex; 
+    height: 100vh; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: #121413; 
+    transition: all 0.6s ease; 
+    min-width: 400px; 
+}
+
+.login-container.fade-out { 
+    opacity: 0; 
+    transform: scale(1.05); 
+    pointer-events: none; 
+}
+
+.login-box { 
+    background: #fff; 
+    padding: 40px; 
+    border-radius: 12px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+    width: 100%; 
+    max-width: 400px; 
+    text-align: center; 
+}
+
+.login-box h2 { 
+    margin-bottom: 10px; 
+    color: #74a779; 
+}
+
+.login-box p { 
+    margin-bottom: 30px; 
+    color: #666; 
+    font-size: 0.9rem; 
+}
+
+.login-box input { 
+    width: 100%; 
+    padding: 12px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ddd; 
+    border-radius: 6px; 
+    font-size: 1rem; 
+    outline: none; 
+}
+
+.btn-primary { 
+    width: auto; 
+    background: #74a779; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    display: inline-block; 
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #5e8c63;
+}
+
+.login-box .btn-primary { 
+    width: 100%; 
+    padding: 12px; 
+}
+
+/* ==========================================================
+   3. PAPAN PEMUKA UTAMA & SIDEBAR
+   ========================================================== */
+.dashboard-container { 
+    display: flex; 
+    height: 100vh; 
+    width: 1024px; 
+    min-width: 1024px; 
+    opacity: 0; 
+    transform: translateY(15px); 
+    transition: all 0.6s ease; 
+}
+
+.dashboard-container.fade-in { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+/* Bar atas telefon (Disorokkan pada desktop) */
+.mobile-top-bar { 
+    display: none; 
+}
+
+.sidebar { 
+    width: 250px; 
+    background: #121413; 
+    color: white; 
+    display: flex; 
+    flex-direction: column; 
+    flex-shrink: 0; 
+}
+
+.sidebar-logo { 
+    padding: 20px; 
+    font-size: 1.2rem; 
+    font-weight: bold; 
+    border-bottom: 1px solid #2a2e2c; 
+    color: #74a779; 
+}
+
+.sidebar-menu { 
+    list-style: none; 
+    flex: 1; 
+    margin-top: 10px; 
+}
+
+.sidebar-menu li { 
+    padding: 15px 20px; 
+    cursor: pointer; 
+    transition: 0.3s; 
+    color: #a9b3ad; 
+    font-size: 0.95rem; 
+}
+
+.sidebar-menu li:hover, 
+.sidebar-menu li.active { 
+    background: #1c221e; 
+    color: white; 
+    border-left: 4px solid #74a779; 
+}
+
+.btn-logout { 
+    background: #d70f64; 
+    color: white; 
+    border: none; 
+    padding: 15px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    transition: background 0.3s ease;
+}
+
+.btn-logout:hover {
+    background: #b00c50;
+}
+
+/* ==========================================================
+   4. KANDUNGAN UTAMA & KOMPONEN KAD
+   ========================================================== */
+.main-content { 
+    flex: 1; 
+    padding: 30px 40px; 
+    overflow-y: auto; 
+    background-color: #f4f7f6; 
+}
+
+.admin-section { 
+    display: none; 
+}
+
+.admin-section.active { 
+    display: block; 
+}
+
+h2 { 
+    margin-bottom: 25px; 
+    color: #121413; 
+    font-size: 1.6rem; 
+}
+
+.control-card { 
+    background: white; 
+    padding: 25px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    margin-bottom: 25px; 
+}
+
+.control-card h3 { 
+    margin-bottom: 8px; 
+    font-size: 1.1rem; 
+    color: #121413; 
+}
+
+.control-card p { 
+    color: #666; 
+    font-size: 0.9rem; 
+    margin-bottom: 15px; 
+}
+
+.admin-input { 
+    padding: 10px 15px; 
+    border: 1px solid #ddd; 
+    border-radius: 6px; 
+    font-size: 0.95rem; 
+    outline: none; 
+}
+
+#announcement-text { 
+    width: 100%; 
+    max-width: 600px; 
+}
+
+/* ==========================================================
+   5. TOGOL SWITCH (TOGGLE SWITCH)
+   ========================================================== */
+.toggle-switch { 
+    position: relative; 
+    display: inline-block; 
+    width: 50px; 
+    height: 26px; 
+    vertical-align: middle; 
+}
+
+.toggle-switch input { 
+    opacity: 0; 
+    width: 0; 
+    height: 0; 
+}
+
+.slider { 
+    position: absolute; 
+    cursor: pointer; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    background-color: #ccc; 
+    transition: .4s; 
+    border-radius: 34px; 
+}
+
+.slider:before { 
+    position: absolute; 
+    content: ""; 
+    height: 18px; 
+    width: 18px; 
+    left: 4px; 
+    bottom: 4px; 
+    background-color: white; 
+    transition: .4s; 
+    border-radius: 50%; 
+}
+
+input:checked + .slider { 
+    background-color: #25D366; 
+}
+
+input:checked + .slider:before { 
+    transform: translateX(24px); 
+}
+
+.status-indicator { 
+    font-weight: bold; 
+    margin-left: 15px; 
+}
+
+/* ==========================================================
+   6. JADUAL MENU & BUTANG TINDAKAN
+   ========================================================== */
+.filter-bar { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 15px; 
+    flex-wrap: wrap; 
+    gap: 10px; 
+}
+
+.menu-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+
+.menu-table th { 
+    background: #f8f9fa; 
+    padding: 12px; 
+    text-align: left; 
+    border-bottom: 2px solid #ddd; 
+    color: #555; 
+}
+
+.menu-table td { 
+    padding: 12px; 
+    border-bottom: 1px solid #eee; 
+    vertical-align: middle; 
+}
+
+.badge { 
+    padding: 4px 10px; 
+    border-radius: 12px; 
+    font-size: 0.75rem; 
+    font-weight: bold; 
+}
+
+.badge-video { 
+    background: #e3f2fd; 
+    color: #1565c0; 
+}
+
+.btn-edit { 
+    background: #3d5a80; 
+    color: white; 
+    border: none; 
+    padding: 6px 15px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 0.85rem; 
+    transition: background 0.3s ease;
+}
+
+.btn-edit:hover {
+    background: #2c4260;
+}
+
+.btn-delete { 
+    background: #d70f64; 
+    color: white; 
+    border: none; 
+    padding: 6px 15px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 0.85rem; 
+    margin-left: 5px; 
+    transition: background 0.3s ease;
+}
+
+.btn-delete:hover {
+    background: #b00c50;
+}
+
+/* ==========================================================
+   7. ANALITIK & GRAF
+   ========================================================== */
+.stats-grid { 
+    display: flex; 
+    gap: 20px; 
+    flex-wrap: wrap; 
+}
+
+.stat-card { 
+    background: white; 
+    padding: 25px; 
+    border-radius: 12px; 
+    flex: 1; 
+    min-width: 250px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    border-left: 4px solid #74a779; 
+}
+
+.stat-number { 
+    font-size: 2.2rem; 
+    font-weight: bold; 
+    color: #121413; 
+    margin-top: 10px; 
+}
+
+.chart-container { 
+    position: relative; 
+    height: 350px; 
+    width: 100%; 
+    max-width: 800px; 
+    margin: 0 auto; 
+}
+
+/* ==========================================================
+   8. MAKLUM BALAS & SUB TABS
+   ========================================================== */
+.feedback-item { 
+    padding: 20px; 
+    border-bottom: 1px solid #eee; 
+}
+
+.feedback-header { 
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 8px; 
+    flex-wrap: wrap; 
+}
+
+.star-rating { 
+    color: #f5a623; 
+    letter-spacing: 2px; 
+}
+
+.admin-sub-tabs { 
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 20px; 
+    flex-wrap: wrap; 
+}
+
+.sub-tab-btn { 
+    background: #e2e8f0; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: 600; 
+    color: #475569; 
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.sub-tab-btn.active, 
+.sub-tab-btn:hover { 
+    background: #74a779; 
+    color: white; 
+}
+
+/* ==========================================================
+   9. MODAL MEDIA SOSIAL
+   ========================================================== */
+.social-item-row { 
+    display: flex; 
+    gap: 10px; 
+    align-items: center; 
+    margin-bottom: 12px; 
+    background: #f8f9fa; 
+    padding: 10px; 
+    border-radius: 8px; 
+    border: 1px solid #eee; 
+}
+
+/* ==========================================================
+   10. MOD GELAP (DARK MODE)
+   ========================================================== */
+body.dark-theme { 
+    background-color: #121413 !important; 
+    color: #e8eae6 !important; 
+}
+
+body.dark-theme .main-content { 
+    background-color: #181c1a !important; 
+}
+
+body.dark-theme .control-card, 
+body.dark-theme .stat-card { 
+    background-color: #1c221e !important; 
+    color: #e8eae6 !important; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4) !important; 
+}
+
+body.dark-theme h2, 
+body.dark-theme h3 { 
+    color: #74a779 !important; 
+}
+
+body.dark-theme p, 
+body.dark-theme label { 
+    color: #a9b3ad !important; 
+}
+
+body.dark-theme .menu-table th { 
+    background: #252b28 !important; 
+    color: #e8eae6 !important; 
+    border-bottom: 2px solid #334038 !important; 
+}
+
+body.dark-theme .menu-table td { 
+    background: #1c221e !important; 
+    color: #e8eae6 !important; 
+    border-bottom: 1px solid #252b28 !important; 
+}
+
+body.dark-theme .admin-input, 
+body.dark-theme select.admin-input { 
+    background-color: #121413 !important; 
+    color: #fff !important; 
+    border-color: #334038 !important; 
+}
+
+body.dark-theme .social-item-row { 
+    background: #121413 !important; 
+    border-color: #334038 !important; 
+}
+
+/* ==========================================================
+   11. RESPENSIF / MEDIA QUERIES (MOBILE)
+   ========================================================== */
+@media (max-width: 768px) {
+    .dashboard-container { 
+        flex-direction: column; 
+        width: 100% !important; 
+        min-width: 100% !important; 
+        height: 100vh; 
+        position: relative; 
+    }
+
+    .main-content { 
+        padding: 12px 8px !important; 
+        overflow-x: hidden; 
+    }
+
+    h2 { 
+        font-size: 1.2rem !important; 
+        margin-bottom: 12px !important; 
+    }
+
+    .control-card { 
+        padding: 12px !important; 
+        margin-bottom: 15px !important; 
+        border-radius: 8px; 
+        overflow-x: auto; 
+    }
+
+    .menu-table { 
+        display: block; 
+        width: 100%; 
+        overflow-x: auto; 
+        white-space: nowrap; 
+    }
+
+    .menu-table th, 
+    .menu-table td { 
+        padding: 6px 8px !important; 
+        font-size: 0.78rem !important; 
+    }
+
+    .admin-input, 
+    select.admin-input { 
+        font-size: 0.85rem !important; 
+        padding: 8px 10px !important; 
+    }
+
+    .btn-primary, 
+    .btn-edit, 
+    .btn-delete { 
+        padding: 6px 10px !important; 
+        font-size: 0.78rem !important; 
+    }
+
+    .mobile-top-bar { 
+        display: flex; 
+        align-items: center; 
+        background: #121413; 
+        color: white; 
+        padding: 10px 15px; 
+        gap: 12px; 
+        flex-shrink: 0; 
+        z-index: 1000; 
+        border-bottom: 1px solid #2a2e2c; 
+    }
+
+    .hamburger-btn { 
+        background: none; 
+        border: none; 
+        cursor: pointer; 
+        display: flex; 
+        flex-direction: column; 
+        gap: 5px; 
+        padding: 4px; 
+    }
+
+    .hamburger-btn span { 
+        display: block; 
+        width: 24px; 
+        height: 3px; 
+        background: #74a779; 
+        border-radius: 2px; 
+    }
+
+    .mobile-brand { 
+        font-size: 1.05rem; 
+        font-weight: bold; 
+        color: #74a779; 
+    }
+
+    .sidebar { 
+        display: none; 
+        width: 100%; 
+        height: auto; 
+        position: absolute; 
+        top: 48px; 
+        left: 0; 
+        z-index: 9999; 
+        background: #121413; 
+        box-shadow: 0 8px 20px rgba(0,0,0,0.5); 
+        border-bottom: 3px solid #74a779; 
+    }
+
+    .sidebar.show { 
+        display: flex; 
+    }
+
+    .social-item-row { 
+        flex-direction: column; 
+        align-items: stretch; 
+    }
+}
